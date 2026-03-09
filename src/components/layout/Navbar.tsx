@@ -11,37 +11,39 @@ const navLinks = [
 ];
 
 export function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
+  // 0 = topo, 1 = totalmente scrollado
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 80);
+    const handleScroll = () => {
+      const p = Math.min(window.scrollY / 160, 1);
+      setProgress(p);
+    };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
-      {/* Dark navbar overlay — fades IN on scroll */}
+      {/* Dark navbar overlay — fades IN gradually as user scrolls */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          opacity: scrolled ? 1 : 0,
-          transition: "opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1)",
+          opacity: progress,
           background: "var(--surface-nav)",
           backdropFilter: "blur(12px)",
           WebkitBackdropFilter: "blur(12px)",
-          borderBottom: scrolled ? "1px solid var(--border-subtle)" : "1px solid transparent",
-          boxShadow: scrolled ? "var(--shadow-float)" : "none",
+          borderBottom: `1px solid rgba(255,255,255,${0.06 * progress})`,
+          boxShadow: progress > 0.5 ? "var(--shadow-float)" : "none",
         }}
       />
 
-      {/* Glass lens bar — right 52%, fades OUT on scroll */}
+      {/* Glass lens bar — right 52%, fades OUT gradually on scroll */}
       <div
         className="absolute top-0 right-0 h-full pointer-events-none overflow-hidden"
         style={{
           width: "52%",
-          opacity: scrolled ? 0 : 1,
-          transition: "opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1)",
+          opacity: 1 - progress,
           backdropFilter: "blur(6px) brightness(1.14) saturate(1.3)",
           WebkitBackdropFilter: "blur(6px) brightness(1.14) saturate(1.3)",
           background: "linear-gradient(to right, rgba(255,255,255,0.0) 0%, rgba(255,255,255,0.04) 20%, rgba(255,255,255,0.06) 100%)",
