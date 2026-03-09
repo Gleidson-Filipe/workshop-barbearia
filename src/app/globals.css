@@ -1,0 +1,144 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Design Tokens ──────────────────────────────────────────────── */
+:root {
+  /* Fundos */
+  --surface-page: #0a0a0a;
+  --surface-section: #0d0f12;
+  --surface-card: #111318;
+  --surface-elevated: #1d313c;
+  --surface-nav: rgba(10, 10, 10, 0.85);
+
+  /* Texto */
+  --text-primary: #f5f0eb;
+  --text-secondary: #9e9189;
+  --text-muted: #5a5350;
+
+  /* Accent — UMA COR */
+  --accent-primary: #f8733a;
+  --accent-hover: #e5622a;
+  --accent-subtle: rgba(248, 115, 58, 0.10);
+  --accent-glow: rgba(248, 115, 58, 0.15);
+
+  /* Status (apenas feedback funcional) */
+  --status-success: #4da4ab;
+  --status-error: #c53b39;
+
+  /* Bordas */
+  --border-default: rgba(255, 255, 255, 0.08);
+  --border-subtle: rgba(255, 255, 255, 0.04);
+  --border-accent: rgba(248, 115, 58, 0.40);
+
+  /* Geometria */
+  --radius-card: 4px;
+  --radius-button: 4px;
+  --radius-input: 4px;
+  --radius-badge: 2px;
+  --radius-avatar: 9999px;
+
+  /* Sombras */
+  --shadow-card: 0 1px 0 rgba(255, 255, 255, 0.04), 0 4px 24px rgba(0, 0, 0, 0.5);
+  --shadow-hover: 0 8px 32px rgba(248, 115, 58, 0.10), 0 0 0 1px rgba(248, 115, 58, 0.18);
+  --shadow-float: 0 20px 60px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.06);
+  --shadow-button: 0 4px 16px rgba(248, 115, 58, 0.25);
+
+  /* Textura crosshatch (SVG inline como background) */
+  --bg-crosshatch: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M0 8L8 0M-1 1L1 -1M7 9L9 7' stroke='%23ffffff' stroke-width='0.5' stroke-opacity='0.03'/%3E%3C/svg%3E");
+}
+
+/* ─── Base ───────────────────────────────────────────────────────── */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--surface-page);
+  color: var(--text-primary);
+  font-family: var(--font-inter), sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-image: var(--bg-crosshatch);
+  background-repeat: repeat;
+}
+
+/* ─── Scrollbar ──────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--surface-page);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-default);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-primary);
+}
+
+/* ─── Selection ──────────────────────────────────────────────────── */
+::selection {
+  background: var(--accent-subtle);
+  color: var(--accent-primary);
+}
+
+/* ─── Typography helpers ─────────────────────────────────────────── */
+.font-display {
+  font-family: var(--font-anton), sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+}
+
+.font-heading {
+  font-family: var(--font-playfair), serif;
+}
+
+/* ─── Section padding utility ────────────────────────────────────── */
+.section-py {
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+}
+
+@media (min-width: 768px) {
+  .section-py {
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+  }
+}
+
+.container-max {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 768px) {
+  .container-max {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* ─── Accent left-border card ────────────────────────────────────── */
+.card-accent-border {
+  border-left: 2px solid var(--accent-primary);
+}
+
+/* ─── Reduced motion ─────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
