@@ -49,7 +49,8 @@ export function Depoimentos() {
 
   useEffect(() => {
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (prefersReduced) return;
+    const isMobile = window.innerWidth < 768;
+    if (prefersReduced || isMobile) return;
 
     import("gsap").then(async (mod) => {
       const { ScrollTrigger } = await import("gsap/ScrollTrigger");
@@ -60,7 +61,7 @@ export function Depoimentos() {
         stagger: 0.15,
         duration: 0.8,
         ease: "power2.out",
-        scrollTrigger: { trigger: sectionRef.current, start: "top 80%" },
+        scrollTrigger: { trigger: sectionRef.current, start: "top 80%", once: true },
       });
     });
   }, []);

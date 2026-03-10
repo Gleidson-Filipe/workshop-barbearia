@@ -8,7 +8,8 @@ export function CTAFinal() {
 
   useEffect(() => {
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (prefersReduced) return;
+    const isMobile = window.innerWidth < 768;
+    if (prefersReduced || isMobile) return;
 
     import("gsap").then(async (mod) => {
       const { ScrollTrigger } = await import("gsap/ScrollTrigger");

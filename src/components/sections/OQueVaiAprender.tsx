@@ -94,7 +94,8 @@ export function OQueVaiAprender() {
 
   useEffect(() => {
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (prefersReduced) return;
+    const isMobile = window.innerWidth < 768;
+    if (prefersReduced || isMobile) return;
 
     import("gsap").then(async (mod) => {
       const { ScrollTrigger } = await import("gsap/ScrollTrigger");
@@ -105,7 +106,7 @@ export function OQueVaiAprender() {
         stagger: 0.1,
         duration: 0.7,
         ease: "power2.out",
-        scrollTrigger: { trigger: sectionRef.current, start: "top 75%" },
+        scrollTrigger: { trigger: sectionRef.current, start: "top 75%", once: true },
       });
     });
   }, []);
